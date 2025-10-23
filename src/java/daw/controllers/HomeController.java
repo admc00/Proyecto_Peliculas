@@ -45,14 +45,14 @@ public class HomeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        HttpSession session = request.getSession(false); // No crear una nueva
+        HttpSession session = request.getSession(false);
         
         if (session != null && session.getAttribute("usuarioLogueado") != null) {
-            // Sí hay sesión: le mostramos la home
+            
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/home.jsp");
             dispatcher.forward(request, response);
         } else {
-            // No hay sesión: lo expulsamos al login
+            
             response.sendRedirect("login");
         }
     }

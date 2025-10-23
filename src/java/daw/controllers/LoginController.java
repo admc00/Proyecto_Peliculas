@@ -96,7 +96,8 @@ public class LoginController extends HttpServlet {
         } catch (NoResultException e) {
            
             request.setAttribute("error", "Email o contraseña incorrectos.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+            String vistaJSP = "/WEB-INF/views/login.jsp";
+            RequestDispatcher dispatcher = request.getRequestDispatcher(vistaJSP);
             dispatcher.forward(request, response);
         }
     }
