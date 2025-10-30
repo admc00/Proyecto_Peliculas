@@ -8,6 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
@@ -97,10 +100,21 @@ public class Usuarios implements Serializable {
     //Relaciones
     
     @OneToMany(mappedBy = "usuario")
-    private List<Reseña> reseñas;
+    private List<Reseña> resena;
     
     @OneToMany(mappedBy = "usuario")
     private List<Comentarios> comentarios;
+    
+    @ManyToMany
+    @JoinTable(
+            name = "rel_seguidores",
+            joinColumns = @JoinColumn(name = "idSeguidor"),
+            inverseJoinColumns = @JoinColumn(name = "idSeguido")
+    )
+    private List<Usuarios> seguidos;
+    
+    @ManyToMany(mappedBy = "seguidos")
+    private List<Usuarios> seguidores;
     
 
     @Override

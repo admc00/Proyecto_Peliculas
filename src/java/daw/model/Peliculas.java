@@ -8,9 +8,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -89,6 +91,12 @@ public class Peliculas implements Serializable {
     public void setPuntuacionMedia(double puntuacionMedia) {
         this.puntuacionMedia = puntuacionMedia;
     }
+    
+    
+    //Relaciones
+    
+    @OneToMany(mappedBy = "pelicula")
+    private List<Reseña> resena;
 
     @Override
     public int hashCode() {

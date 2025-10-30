@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
@@ -25,8 +27,6 @@ public class Comentarios implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private int idUsuario;
-    private int idReseña;
     private String texto;
     private Date fecha;
 
@@ -44,28 +44,12 @@ public class Comentarios implements Serializable {
         this.id = id;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public int getIdReseña() {
-        return idReseña;
-    }
-
     public String getTexto() {
         return texto;
     }
 
     public Date getFecha() {
         return fecha;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public void setIdReseña(int idReseña) {
-        this.idReseña = idReseña;
     }
 
     public void setTexto(String texto) {
@@ -75,6 +59,32 @@ public class Comentarios implements Serializable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+
+    public Reseña getResena() {
+        return resena;
+    }
+
+    public void setResena(Reseña resena) {
+        this.resena = resena;
+    }
+
+    public Usuarios getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuarios usuario) {
+        this.usuario = usuario;
+    }
+    
+    
+    //Relaciones
+    @ManyToOne
+    @JoinColumn(name = "idReseña")
+    private Reseña resena;
+    
+    @ManyToOne
+    @JoinColumn(name = "idUsuario")
+    private Usuarios usuario;
     
     @Override
     public int hashCode() {

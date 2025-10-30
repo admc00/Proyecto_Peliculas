@@ -7,18 +7,10 @@
         <title>Inicio</title>
     </head>
     <body>
+        
+        <jsp:include page="/WEB-INF/views/barranav.jsp" />
 
-    <c:if test="${empty sessionScope.usuarioLogueado}">
-        <% response.sendRedirect("login");%>
-    </c:if>
-
-    <c:if test="${not empty sessionScope.usuarioLogueado}">
-        <h1>¡Bienvenido, ${sessionScope.usuarioLogueado.nombreUsuario}!</h1>
-
-        <p>Inicio de la aplicacion.</p>
-
-        <a>Cerrar Sesión</a>
-    </c:if>
-
-</body>
+        <h1>¡Bienvenido</h1>
+      
+    </body>
 </html>

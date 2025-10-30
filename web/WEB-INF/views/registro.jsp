@@ -9,7 +9,7 @@
     </head>
     <body>
         <h1>Crear Cuenta</h1>
-        <form method="POST" action="/Proyecto_Peliculas/registro">
+        <form method="POST" action="/Proyecto_Peliculas/usuario/registro">
             <div>
                 <label>Nombre de Usuario:</label>
                 <input type="text" name="nombreUsuario" required>

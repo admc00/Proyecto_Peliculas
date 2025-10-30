@@ -8,9 +8,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -26,8 +30,6 @@ public class Reseña implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private int idUsuario;
-    private int idApiPelicula;
     private String texto;
     private int puntuacion;
     private Date fecha;
@@ -43,14 +45,14 @@ public class Reseña implements Serializable {
     public Reseña() {
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public Usuarios getUsuario() {
+        return usuario;
     }
 
-    public int getIdApiPelicula() {
-        return idApiPelicula;
+    public Peliculas getPelicula() {
+        return pelicula;
     }
-
+    
     public String getTexto() {
         return texto;
     }
@@ -63,12 +65,12 @@ public class Reseña implements Serializable {
         return fecha;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuarios usuario) {
+        this.usuario = usuario;
     }
 
-    public void setIdApiPelicula(int idApiPelicula) {
-        this.idApiPelicula = idApiPelicula;
+    public void setPelicula(Peliculas pelicula) {
+        this.pelicula = pelicula;
     }
 
     public void setTexto(String texto) {
@@ -82,6 +84,19 @@ public class Reseña implements Serializable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+    
+    
+    //Relaciones
+    @ManyToOne
+    @JoinColumn(name = "idUsuario")
+    private Usuarios usuario;
+    
+    @ManyToOne
+    @JoinColumn(name = "idPelicula")
+    private Peliculas pelicula;
+    
+    @OneToMany(mappedBy = "resena")
+    private List<Comentarios> comentarios;
     
     
     @Override

@@ -10,7 +10,7 @@
     <body>
         <h1>Iniciar Sesion</h1>
 
-        <form method="POST" action="/Proyecto_Peliculas/login">
+        <form method="POST" action="/Proyecto_Peliculas/usuario/login">
             <div>
                 <label>Email:</label>
                 <input type="email" name="email" required>
