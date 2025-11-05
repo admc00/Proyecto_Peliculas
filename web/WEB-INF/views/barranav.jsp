@@ -20,7 +20,7 @@
         <div class ="navbar-usuario">
             <c:if test="${not empty sessionScope.usuarioLogueado}">
 
-                <a>
+                <a href="/Proyecto_Peliculas/usuario/perfil/${sessionScope.usuarioLogueado.id}">
                     Mi Perfil (${sessionScope.usuarioLogueado.nombreUsuario})
                 </a>
                 <a href="/Proyecto_Peliculas/usuario/logout">Cerrar Sesión</a>

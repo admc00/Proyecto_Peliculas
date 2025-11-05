@@ -96,6 +96,32 @@ public class Usuarios implements Serializable {
     public void setBiografia(String biografia) {
         this.biografia = biografia;
     }
+
+    public List<Reseña> getResena() {
+        return resena;
+    }
+
+    public void setResena(List<Reseña> resena) {
+        this.resena = resena;
+    }
+
+    public List<Usuarios> getSeguidos() {
+        return seguidos;
+    }
+
+    public void setSeguidos(List<Usuarios> seguidos) {
+        this.seguidos = seguidos;
+    }
+
+    public List<Usuarios> getSeguidores() {
+        return seguidores;
+    }
+
+    public void setSeguidores(List<Usuarios> seguidores) {
+        this.seguidores = seguidores;
+    }
+    
+    
     
     //Relaciones
     
