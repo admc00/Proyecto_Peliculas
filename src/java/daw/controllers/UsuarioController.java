@@ -61,7 +61,7 @@ public class UsuarioController extends HttpServlet {
                 case "/registro":
                     vista = "/WEB-INF/views/registro.jsp";
                     break;
-
+              
                 case "/logout":
                     HttpSession session = request.getSession(false);
                     if (session != null) {
@@ -70,36 +70,6 @@ public class UsuarioController extends HttpServlet {
                     }
                     response.sendRedirect(request.getContextPath() + "/home");
                     return;
-
-                default:
-                    if (action.startsWith("/perfil/")) {
-                        try {
-                            // Extrae el ID después de "/perfil/"
-                            Integer idUsuarioPerfil = Integer.valueOf(action.substring("/perfil/".length()));
-
-                            // Busca al usuario en la BD
-                            Usuarios usuarioPerfil = em.find(Usuarios.class, idUsuarioPerfil);
-
-                            if (usuarioPerfil != null) {
-
-                                // ¡Éxito! Preparamos los datos y la vista
-                                request.setAttribute("perfil", usuarioPerfil);
-                                vista = "/WEB-INF/views/perfil.jsp"; // Asigna la vista correcta
-                                request.removeAttribute("errorMsg"); // Quita el error por defecto
-                            } else {
-                                // Usuario no encontrado
-                                request.setAttribute("errorMsg", "Usuario no encontrado.");
-                                // se queda con la vista "error.jsp"
-                            }
-                        } catch (NumberFormatException e) {
-                            request.setAttribute("errorMsg", "El ID de usuario debe ser un número.");
-                            // se queda con la vista "error.jsp"
-                        } catch (Exception e) {
-                            request.setAttribute("errorMsg", "Error al cargar el perfil.");
-                            // se queda con la vista "error.jsp"
-                        }
-                    }
-                    break;
 
             }
         } catch (Exception e) {
