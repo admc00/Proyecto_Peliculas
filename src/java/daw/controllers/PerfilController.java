@@ -48,7 +48,7 @@ public class PerfilController extends HttpServlet {
             throws ServletException, IOException {
 
         String action = request.getPathInfo();
-        String vista = "/home";
+        String vista = "error";
         
 
         if (action == null) {
@@ -58,9 +58,8 @@ public class PerfilController extends HttpServlet {
         
          try {
             switch (action) {
-                case "/*":
-                    vista = "/WEB-INF/views/perfil.jsp";
-                    break;
+                case "":
+                  
 
             }
         } catch (Exception e) {

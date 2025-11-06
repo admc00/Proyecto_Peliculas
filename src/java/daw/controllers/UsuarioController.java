@@ -61,7 +61,11 @@ public class UsuarioController extends HttpServlet {
                 case "/registro":
                     vista = "/WEB-INF/views/registro.jsp";
                     break;
-              
+
+                case "/perfil":
+                    vista = "/WEB-INF/views/perfil.jsp";
+                    break;
+
                 case "/logout":
                     HttpSession session = request.getSession(false);
                     if (session != null) {
@@ -113,6 +117,7 @@ public class UsuarioController extends HttpServlet {
                 case "/registro":
                     procesarRegistro(request, response);
                     break;
+
             }
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Error inesperado en doPost", e);
