@@ -63,10 +63,11 @@ public class UsuarioController extends HttpServlet {
                     break;
 
                 case "/perfil":
-                    vista = "/WEB-INF/views/perfil.jsp";
-                    break;
+                        vista = "/WEB-INF/views/perfil.jsp";
+                        break;
 
-                case "/logout":
+                    
+            case "/logout":
                     HttpSession session = request.getSession(false);
                     if (session != null) {
                         session.invalidate();
@@ -82,51 +83,54 @@ public class UsuarioController extends HttpServlet {
 
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(vista);
-        dispatcher.forward(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(vista);
+            dispatcher.forward(request, response);
 
-    }
+        }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        /**
+         * Handles the HTTP <code>POST</code> method.
+         *
+         * @param request servlet request
+         * @param response servlet response
+         * @throws ServletException if a servlet-specific error occurs
+         * @throws IOException if an I/O error occurs
+         */
+        @Override
+        protected void doPost
+        (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String action = request.getPathInfo();
+            String action = request.getPathInfo();
 
-        if (action == null) {
-            request.setAttribute("errorMsg", "Acción POST no especificada.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/error.jsp");
-            dispatcher.forward(request, response);
-            return;
-        }
-
-        try {
-            switch (action) {
-                case "/login":
-                    procesarLogin(request, response);
-                    break;
-
-                case "/registro":
-                    procesarRegistro(request, response);
-                    break;
-
+            if (action == null) {
+                request.setAttribute("errorMsg", "Acción POST no especificada.");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/error.jsp");
+                dispatcher.forward(request, response);
+                return;
             }
-        } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Error inesperado en doPost", e);
-            request.setAttribute("errorMsg", "Ocurrió un error inesperado al procesar tu formulario.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/error.jsp");
-            dispatcher.forward(request, response);
+
+            try {
+                switch (action) {
+                    case "/login":
+                        procesarLogin(request, response);
+                        break;
+
+                    case "/registro":
+                        procesarRegistro(request, response);
+                        break;
+
+                }
+            } catch (Exception e) {
+                LOG.log(Level.SEVERE, "Error inesperado en doPost", e);
+                request.setAttribute("errorMsg", "Ocurrió un error inesperado al procesar tu formulario.");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/error.jsp");
+                dispatcher.forward(request, response);
+            }
+
         }
 
-    }
+    
 
     private void procesarLogin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String email = request.getParameter("email");

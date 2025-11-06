@@ -19,5 +19,20 @@
 
         <jsp:include page="/WEB-INF/views/barranav.jsp" />
         <h1>Mi pagina</h1>
+        <<main>
+            
+            <div>
+                
+                <label></label>
+                
+            </div>
+            
+            <div>
+                
+                
+                
+            </div>
+            
+        </main>
     </body>
 </html>
