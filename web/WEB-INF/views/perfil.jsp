@@ -1,9 +1,3 @@
-<%-- 
-    Document   : perfil
-    Created on : 5 nov 2025, 13:11:45
-    Author     : admc0
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,11 +13,11 @@
 
         <jsp:include page="/WEB-INF/views/barranav.jsp" />
         <h1>Mi pagina</h1>
-        <<main>
+        <main>
             
             <div>
                 
-                <label></label>
+                <a>${sessionScope.usuarioLogueado.nombreUsuario}</a>
                 
             </div>
             
