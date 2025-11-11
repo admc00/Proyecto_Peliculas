@@ -72,7 +72,7 @@ public class UsuarioController extends HttpServlet {
                         session.invalidate();
                         LOG.log(Level.INFO, "Sesion invalidada.");
                     }
-                    response.sendRedirect(request.getContextPath() + "/home");
+                    response.sendRedirect(request.getContextPath() + "/home?toast=logout");
                     return;
 
             }
