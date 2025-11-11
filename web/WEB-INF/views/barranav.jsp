@@ -26,9 +26,7 @@
 
 
 
-                <a href="/Proyecto_Peliculas/usuario/logout">Cerrar Sesión</a>
-
-                <button type="button" class="btn btn-primary" id="liveToastBtn">Mostrar el toast en vivo</button>
+                <a id="liveToastBtn" href="/Proyecto_Peliculas/usuario/logout">Cerrar Sesión</a>
 
                 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                     <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -55,8 +53,8 @@
             </c:if>
 
 
-            <script src="Proyecto_Peliculas/javascript/main.js"></script>
-        </div>
 
+        </div>
+        <script src="${pageContext.request.contextPath}/javascript/main.js"></script>
     </nav>
 </html>
