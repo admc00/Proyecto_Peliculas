@@ -38,10 +38,11 @@ public class ApiService {
         try {
             String queryEncoded = URLEncoder.encode(query, StandardCharsets.UTF_8);
             String url = String.format("%s/search/movie?api_key=%s&query=%s&language=es-ES",
-                    API_BASE_URL, API_KEY, queryEncoded);
+                    API_BASE_URL, queryEncoded);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(url))
+                    .header("Authorization", "Bearer " + API_KEY)
                     .GET()
                     .build();
 
@@ -61,10 +62,11 @@ public class ApiService {
     public PeliculaDTO obtenerDetallesPelicula(int idApi) {
         try {
             String url = String.format("%s/movie/%d?api_key=%s&language=es-ES",
-                    API_BASE_URL, idApi, API_KEY);
+                    API_BASE_URL, idApi);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(url))
+                    .header("Authorization", "Bearer " + API_KEY)
                     .GET()
                     .build();
 
