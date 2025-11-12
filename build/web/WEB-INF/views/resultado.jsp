@@ -25,7 +25,7 @@
                     <p>No se encontraron resultados.</p>
                 </c:if>
 
-                <%-- Iteramos sobre la lista 'peliculas' pasada desde el servlet --%>
+               
                 <c:forEach var="pelicula" items="${peliculas}">
                     <div class="col-md-3 mb-4">
                         <div class="card h-100">

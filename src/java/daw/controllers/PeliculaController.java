@@ -20,6 +20,7 @@ import java.util.List;
  *
  * @author admc0
  */
+
 @WebServlet(name = "PeliculaController", urlPatterns = {"/pelicula/*"})
 public class PeliculaController extends HttpServlet {
     
@@ -38,8 +39,9 @@ public class PeliculaController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+
         String action = request.getPathInfo();
-        String vista = "/WEB-INF/views/home.jsp"; // Vista por defecto
+        String vista = "/WEB-INF/views/home.jsp";
 
         try {
             if (action == null) {
@@ -48,28 +50,28 @@ public class PeliculaController extends HttpServlet {
 
             switch (action) {
                 case "/buscar":
-                    // Lógica para la búsqueda
+                
                     String query = request.getParameter("query");
                     List<PeliculaDTO> peliculas = apiService.buscarPeliculas(query);
                     
                     request.setAttribute("peliculas", peliculas);
                     request.setAttribute("terminoBusqueda", query);
-                    vista = "/WEB-INF/views/resultados.jsp"; // Nueva vista
+                    vista = "/WEB-INF/views/resultado.jsp";
                     break;
 
                 case "/detalles":
-                    // Lógica para ver detalles
+                   
                     int idApi = Integer.parseInt(request.getParameter("id"));
                     PeliculaDTO pelicula = apiService.obtenerDetallesPelicula(idApi);
                     
                     request.setAttribute("pelicula", pelicula);
-                    vista = "/WEB-INF/views/detalles.jsp"; // Nueva vista
+                    vista = "/WEB-INF/views/detalles.jsp"; 
                     break;
                     
                 default:
-                    // Redirigir a home si la acción no es reconocida
+                  
                     response.sendRedirect(request.getContextPath() + "/home");
-                    return; // Importante: 'return' para evitar el forward
+                    return; 
             }
 
             RequestDispatcher dispatcher = request.getRequestDispatcher(vista);
