@@ -25,7 +25,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     height: 40px;
     width: auto;
     vertical-align: middle;
+    border-radius: 50%;
 }
+
+.toast-icon{
+    
+    width: 24px; 
+    height: 24px;  
+    flex-shrink: 0; 
+    object-fit: contain;
+    border-radius: 50%;
+    
+}
+
 .navbar-logo:hover {
     opacity: 0.8;
 }
@@ -33,7 +45,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .navbar-search {
     display: flex;
-    padding-left: 20 0px;
+    padding-left: 200px;
 }
 .navbar-search input[type=text] {
     padding: 8px;
@@ -73,16 +85,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .btn-color{
-    
-   background: #FF2C2C;
-   color: white
-    
+
+    background: #FF2C2C;
+    color: white
+
 }
 
 .btn-color:hover{
-    
-   background-color: #FA5053;
-   color: white
-    
+
+    background-color: #FA5053;
+    color: white
+
 }
 

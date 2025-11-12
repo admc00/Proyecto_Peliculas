@@ -4,6 +4,9 @@
  */
 package daw.controllers;
 
+import daw.dto.PeliculaDTO;
+import daw.services.ApiService;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -18,32 +22,8 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "PeliculaController", urlPatterns = {"/pelicula/*"})
 public class PeliculaController extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PeliculaController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PeliculaController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    
+    private ApiService apiService = new ApiService();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -57,7 +37,51 @@ public class PeliculaController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        String action = request.getPathInfo();
+        String vista = "/WEB-INF/views/home.jsp"; // Vista por defecto
+
+        try {
+            if (action == null) {
+                action = "/";
+            }
+
+            switch (action) {
+                case "/buscar":
+                    // Lógica para la búsqueda
+                    String query = request.getParameter("query");
+                    List<PeliculaDTO> peliculas = apiService.buscarPeliculas(query);
+                    
+                    request.setAttribute("peliculas", peliculas);
+                    request.setAttribute("terminoBusqueda", query);
+                    vista = "/WEB-INF/views/resultados.jsp"; // Nueva vista
+                    break;
+
+                case "/detalles":
+                    // Lógica para ver detalles
+                    int idApi = Integer.parseInt(request.getParameter("id"));
+                    PeliculaDTO pelicula = apiService.obtenerDetallesPelicula(idApi);
+                    
+                    request.setAttribute("pelicula", pelicula);
+                    vista = "/WEB-INF/views/detalles.jsp"; // Nueva vista
+                    break;
+                    
+                default:
+                    // Redirigir a home si la acción no es reconocida
+                    response.sendRedirect(request.getContextPath() + "/home");
+                    return; // Importante: 'return' para evitar el forward
+            }
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher(vista);
+            dispatcher.forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMsg", "Error al procesar la solicitud de película.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/error.jsp");
+            dispatcher.forward(request, response);
+        }
+        
     }
 
     /**
@@ -71,7 +95,7 @@ public class PeliculaController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       
     }
 
     /**

@@ -14,7 +14,7 @@
                 <img src="${pageContext.request.contextPath}/img/logo.png">
             </a>
 
-            <form class="navbar-search"  >
+            <form class="navbar-search" method="GET" action="${pageContext.request.contextPath}/pelicula/buscar">
                 <input type="text" name="query" placeholder="Buscar películas...">
                 <button type="submit">Buscar</button>
             </form>
@@ -26,25 +26,7 @@
                         Mi Perfil (${sessionScope.usuarioLogueado.nombreUsuario})
                     </a>
 
-
-
                     <a href="/Proyecto_Peliculas/usuario/logout">Cerrar Sesión</a>
-
-                    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                            <div class="toast-header">
-                                <img src="..." class="rounded me-2" alt="...">
-                                <strong class="me-auto">Notificación</strong>
-                                <small>Justo Ahora</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                            <div class="toast-body"  id="liveToastBody">
-                                   
-                            </div>
-                        </div>
-                    </div>
-
-
 
                 </c:if>
 
@@ -56,6 +38,20 @@
 
 
 
+            </div>
+
+            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <img class="toast-icon me-2" class="img-fluid" src="${pageContext.request.contextPath}/img/logo.png" class="rounded me-2" alt="...">
+                        <strong class="me-auto">Notificación</strong>
+                        <small>Justo Ahora</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body"  id="liveToastBody">
+
+                    </div>
+                </div>
             </div>
 
         </nav>
