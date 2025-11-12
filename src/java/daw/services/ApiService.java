@@ -23,10 +23,8 @@ import java.util.List;
 public class ApiService {
     
     private static final String API_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YjNmMDBmODMwMmU4MzNiYjA4Y2I0MmY2ZGM4M2QwOCIsIm5iZiI6MTc2MjQyMDYzOS43MDMsInN1YiI6IjY5MGM2NzlmMTFjZTcyOTg2NjA3MTU2MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4bcfR3nh9Grl3Y_CfiWCblwRNKeF3BG7FX_5FNQcbL0";
-
     
-    
-    private static final String API_BASE_URL = "https://api.themoviedb.org/3/movie/changes?page=1";
+    private static final String API_BASE_URL = "https://api.themoviedb.org/3";
     
     private final HttpClient httpClient;
     private final Gson gson;
