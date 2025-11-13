@@ -52,6 +52,7 @@ public class PeliculaController extends HttpServlet {
                 case "/buscar":
                 
                     String query = request.getParameter("query");
+                    
                     List<PeliculaDTO> peliculas = apiService.buscarPeliculas(query);
                     
                     request.setAttribute("peliculas", peliculas);

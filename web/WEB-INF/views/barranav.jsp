@@ -7,7 +7,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/estilo.css" rel="stylesheet">
     </head>
-    <<body>
+    <body>
         <nav class="navbar">
 
             <a href="/Proyecto_Peliculas/home" class="navbar-logo">
