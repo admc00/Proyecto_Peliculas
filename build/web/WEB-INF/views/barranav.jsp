@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
         <nav class="navbar">
-
             <a href="/Proyecto_Peliculas/home" class="navbar-logo">
                 <img src="${pageContext.request.contextPath}/img/logo.png">
             </a>

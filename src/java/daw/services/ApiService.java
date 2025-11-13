@@ -33,7 +33,7 @@ public class ApiService {
 
     private static final String API_BASE_URL = "https://api.themoviedb.org/3";
 
-    private static final String RUTA_CERTIFICADO = "C:\\Users\\admc0\\Desktop\\_.themoviedb.org.crt";
+    private static final String RUTA_CERTIFICADO = "..\\Proyecto_Peliculas\\cert";
 
     private final HttpClient httpClient;
     private final Gson gson;
@@ -41,36 +41,34 @@ public class ApiService {
     public ApiService() {
         HttpClient tempClient = null;
         try {
-            // --- INICIO DE LA SOLUCIÓN SSL SEGURA ---
-
-            // 1. Cargar el archivo .crt del escritorio
+           
             FileInputStream fis = new FileInputStream(RUTA_CERTIFICADO);
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
             X509Certificate tmdbCert = (X509Certificate) cf.generateCertificate(fis);
             fis.close();
 
-            // 2. Crear un KeyStore en memoria y añadir el certificado
+            
             KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-            keyStore.load(null, null); // Inicia un KeyStore vacío
-            keyStore.setCertificateEntry("tmdb-alias", tmdbCert); // Añade nuestro certificado
+            keyStore.load(null, null); 
+            keyStore.setCertificateEntry("tmdb-alias", tmdbCert); 
 
-            // 3. Crear un TrustManagerFactory que confíe en nuestro KeyStore
+         
             TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             tmf.init(keyStore);
 
-            // 4. Crear un SSLContext que use nuestro TrustManager
+            
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, tmf.getTrustManagers(), null);
 
-            // 5. Construir el HttpClient usando nuestro SSLContext personalizado
+          
             tempClient = HttpClient.newBuilder()
                     .sslContext(sslContext)
                     .build();
 
-            // --- FIN DE LA SOLUCIÓN ---
+          
         } catch (Exception e) {
             e.printStackTrace();
-            // Si todo falla, usa el cliente inseguro como último recurso (basado en el éxito anterior)
+           
             tempClient = createInsecureHttpClient();
         }
 
@@ -98,7 +96,7 @@ public class ApiService {
             return HttpClient.newBuilder().sslContext(sslContext).build();
         } catch (Exception e) {
             e.printStackTrace();
-            return HttpClient.newHttpClient(); // Fallback final
+            return HttpClient.newHttpClient(); 
         }
     }
 

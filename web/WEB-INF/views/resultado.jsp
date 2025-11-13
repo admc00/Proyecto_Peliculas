@@ -1,8 +1,3 @@
-<%-- 
-    Document   : resultado
-    Created on : 12 nov 2025, 12:11:38
-    Author     : admc0
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,11 +8,9 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/estilo.css" rel="stylesheet">
     </head>
-    <body class="d-flex flex-column vh-100">
-
+    <body class="d-flex flex-column vh-90">
         <jsp:include page="/WEB-INF/views/barranav.jsp" />
-
-        <main class="container mt-5">
+        <main class="container mt-5 ">
             <h1>Resultados para: "${terminoBusqueda}"</h1>
 
             <div class="row">
