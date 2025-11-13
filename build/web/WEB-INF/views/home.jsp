@@ -13,11 +13,9 @@
         <jsp:include page="/WEB-INF/views/barranav.jsp" />
 
         <h1>¡Bienvenido</h1>
-        
-        
-        
-        
-        
+
+
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="${pageContext.request.contextPath}/javascript/main.js"></script>
 

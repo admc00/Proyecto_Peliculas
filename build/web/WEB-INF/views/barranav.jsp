@@ -1,13 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="${pageContext.request.contextPath}/css/estilo.css" rel="stylesheet">
-    </head>
-    <body>
+
         <nav class="navbar">
 
             <a href="/Proyecto_Peliculas/home" class="navbar-logo">
@@ -15,7 +7,7 @@
             </a>
 
             <form class="navbar-search" method="GET" action="${pageContext.request.contextPath}/pelicula/buscar">
-                <input type="text" name="query" placeholder="Buscar pelÃ­culas...">
+                <input type="text" name="query" placeholder="Buscar películas...">
                 <button type="submit">Buscar</button>
             </form>
 
@@ -26,13 +18,13 @@
                         Mi Perfil (${sessionScope.usuarioLogueado.nombreUsuario})
                     </a>
 
-                    <a href="/Proyecto_Peliculas/usuario/logout">Cerrar SesiÃ³n</a>
+                    <a href="/Proyecto_Peliculas/usuario/logout">Cerrar Sesión</a>
 
                 </c:if>
 
                 <c:if test="${empty sessionScope.usuarioLogueado}">
 
-                    <a href="/Proyecto_Peliculas/usuario/login">Iniciar SesiÃ³n</a>
+                    <a href="/Proyecto_Peliculas/usuario/login">Iniciar Sesión</a>
                     <a href="/Proyecto_Peliculas/usuario/registro">Registrarse</a>
                 </c:if>
 
@@ -44,7 +36,7 @@
                 <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                     <div class="toast-header">
                         <img class="toast-icon me-2" class="img-fluid" src="${pageContext.request.contextPath}/img/logo.png" class="rounded me-2" alt="...">
-                        <strong class="me-auto">NotificaciÃ³n</strong>
+                        <strong class="me-auto">Notificación</strong>
                         <small>Justo Ahora</small>
                         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
@@ -55,7 +47,4 @@
             </div>
 
         </nav>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="${pageContext.request.contextPath}/javascript/main.js"></script>
-    </body>
-</html>
+
