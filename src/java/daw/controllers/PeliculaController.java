@@ -66,7 +66,7 @@ public class PeliculaController extends HttpServlet {
                     PeliculaDTO pelicula = apiService.obtenerDetallesPelicula(idApi);
                     
                     request.setAttribute("pelicula", pelicula);
-                    vista = "/WEB-INF/views/detalles.jsp"; 
+                    vista = "/WEB-INF/views/detallesPelicula.jsp"; 
                     break;
                     
                 default:
