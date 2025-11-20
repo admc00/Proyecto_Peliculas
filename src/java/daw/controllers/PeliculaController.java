@@ -59,15 +59,6 @@ public class PeliculaController extends HttpServlet {
                     request.setAttribute("terminoBusqueda", query);
                     vista = "/WEB-INF/views/resultado.jsp";
                     break;
-
-                case "/detalles":
-                   
-                    int idApi = Integer.parseInt(request.getParameter("id"));
-                    PeliculaDTO pelicula = apiService.obtenerDetallesPelicula(idApi);
-                    
-                    request.setAttribute("pelicula", pelicula);
-                    vista = "/WEB-INF/views/detallesPelicula.jsp"; 
-                    break;
                     
                 default:
                   

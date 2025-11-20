@@ -4,7 +4,9 @@
  */
 package daw.controllers;
 
+import daw.dto.PeliculaDTO;
 import daw.model.Usuarios;
+import daw.services.ApiService;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -18,6 +20,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.UserTransaction;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +30,8 @@ import java.util.logging.Logger;
  */
 @WebServlet(name = "HomeController", urlPatterns = {"/home/*"})
 public class HomeController extends HttpServlet {
+
+    private ApiService apiService = new ApiService();
 
     @PersistenceContext(unitName = "Proyecto_PeliculasPU")
     private EntityManager em;
@@ -63,10 +68,17 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
 
         String vista = "/WEB-INF/views/home.jsp";
-       
+
+        List<PeliculaDTO> peliculas = apiService.peliculasPopulares();
+        List<PeliculaDTO> peliculasComedia = apiService.obtenerPeliculasPorGenero(35);
+        List<PeliculaDTO> peliculasTerror = apiService.obtenerPeliculasPorGenero(27);
+
+        request.setAttribute("peliculas", peliculas);
+        request.setAttribute("peliculasComedia", peliculasComedia);
+        request.setAttribute("peliculasTerror", peliculasTerror);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher(vista);
         dispatcher.forward(request, response);
-
     }
 
     /**
@@ -80,7 +92,7 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+      
     }
 
     /**

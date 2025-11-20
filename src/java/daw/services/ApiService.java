@@ -41,34 +41,29 @@ public class ApiService {
     public ApiService() {
         HttpClient tempClient = null;
         try {
-           
+
             FileInputStream fis = new FileInputStream(RUTA_CERTIFICADO);
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
             X509Certificate tmdbCert = (X509Certificate) cf.generateCertificate(fis);
             fis.close();
 
-            
             KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-            keyStore.load(null, null); 
-            keyStore.setCertificateEntry("tmdb-alias", tmdbCert); 
+            keyStore.load(null, null);
+            keyStore.setCertificateEntry("tmdb-alias", tmdbCert);
 
-         
             TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             tmf.init(keyStore);
 
-            
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, tmf.getTrustManagers(), null);
 
-          
             tempClient = HttpClient.newBuilder()
                     .sslContext(sslContext)
                     .build();
 
-          
         } catch (Exception e) {
             e.printStackTrace();
-           
+
             tempClient = createInsecureHttpClient();
         }
 
@@ -96,7 +91,7 @@ public class ApiService {
             return HttpClient.newBuilder().sslContext(sslContext).build();
         } catch (Exception e) {
             e.printStackTrace();
-            return HttpClient.newHttpClient(); 
+            return HttpClient.newHttpClient();
         }
     }
 
@@ -148,6 +143,58 @@ public class ApiService {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public List<PeliculaDTO> peliculasPopulares() {
+        try {
+
+            String url = String.format("%s/movie/popular?language=es-ES",
+                    API_BASE_URL);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(url))
+                    .header("accept", "application/json")
+                    .header("Authorization", "Bearer " + API_KEY)
+                    .method("GET", HttpRequest.BodyPublishers.noBody())
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            String jsonBody = response.body();
+
+            RespuestaApiDTO respuestaApi = gson.fromJson(jsonBody, RespuestaApiDTO.class);
+            return respuestaApi.getPeliculas();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    public List<PeliculaDTO> obtenerPeliculasPorGenero(int idGenero) {
+        try {
+
+            String url = String.format("%s/discover/movie?language=es-ES&sort_by=popularity.desc&with_genres=%d",
+                    API_BASE_URL, idGenero);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(url))
+                    .header("accept", "application/json")
+                    .header("Authorization", "Bearer " + API_KEY)
+                    .method("GET", HttpRequest.BodyPublishers.noBody())
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            String jsonBody = response.body();
+
+            RespuestaApiDTO respuestaApi = gson.fromJson(jsonBody, RespuestaApiDTO.class);
+            return respuestaApi.getPeliculas();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
         }
     }
 

@@ -29,13 +29,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .toast-icon{
-    
-    width: 24px; 
-    height: 24px;  
-    flex-shrink: 0; 
+
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
     object-fit: contain;
     border-radius: 50%;
-    
+
 }
 
 .navbar-logo:hover {
@@ -98,3 +98,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 }
 
+.poster-accion {
+    cursor: pointer;              /* Cambia el cursor a una mano */
+    transition: transform 0.3s ease, filter 0.3s ease; /* Suaviza la animación */
+}
+
+.poster-accion:hover {
+    transform: scale(1.03);       /* Agranda la imagen un 3% */
+    filter: brightness(1.1);      /* Aumenta el brillo ligeramente */
+}
