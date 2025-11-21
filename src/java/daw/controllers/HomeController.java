@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  *
  * @author admc0
  */
-@WebServlet(name = "HomeController", urlPatterns = {"/home/*"})
+@WebServlet(name = "HomeController", urlPatterns = {""})
 public class HomeController extends HttpServlet {
 
     private ApiService apiService = new ApiService();

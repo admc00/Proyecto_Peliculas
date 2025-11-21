@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
 
             case "registroExitoso":
-                mensaje = "Has cerrado sesión correctamente.";
+                mensaje = "Has creado una cuenta correctamente.";
                 break;
 
             case "loginExitoso":
@@ -48,24 +48,20 @@ document.addEventListener("click", function () {
 
     const modalDetalle = document.getElementById('detallePeliculaModal');
 
-    // Si el modal no existe en esta página, salimos de esta función.
     if (!modalDetalle) {
         return;
     }
 
-    // Asignamos el evento al modal
     modalDetalle.addEventListener('show.bs.modal', event => {
-        // Botón que activó el modal
+      
         const button = event.relatedTarget;
 
-        // Extraer información de los atributos data-*
         const titulo = button.getAttribute('data-titulo');
         const fecha = button.getAttribute('data-fecha');
         const puntuacion = button.getAttribute('data-puntuacion');
         const imagen = button.getAttribute('data-imagen');
         const descripcion = button.getAttribute('data-descripcion');
 
-        // Actualizar el contenido del modal
         const elTitulo = modalDetalle.querySelector('#modalTitulo');
         const elFecha = modalDetalle.querySelector('#modalFecha');
         const elPuntuacion = modalDetalle.querySelector('#modalPuntuacion');

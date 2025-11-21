@@ -60,9 +60,14 @@ public class PeliculaController extends HttpServlet {
                     vista = "/WEB-INF/views/resultado.jsp";
                     break;
                     
+                case "/detalles":
+                    
+                    vista = "/WEB-INF/views/pelicula.jsp";
+                    break;
+                    
                 default:
                   
-                    response.sendRedirect(request.getContextPath() + "/home");
+                    response.sendRedirect(request.getContextPath() + "");
                     return; 
             }
 

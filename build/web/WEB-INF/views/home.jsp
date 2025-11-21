@@ -108,11 +108,17 @@
                             <div class="col-md-7">
                                 <h2 id="modalTitulo"></h2>
                                 <p>Fecha: <span id="modalFecha"></span></p>
-                                <p>Puntuación: <span id="modalPuntuacion"></span></p>
+                                <p>Puntuación: <span id="modalPuntuacion" class="badge bg-warning text-dark"></span> / 10</p>
                                 <p id="modalDescripcion"></p>
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="modal-footer border-secondary">
+                        
+                        <a type="button" class="btn btn-secondary" href="${pageContext.request.contextPath}/pelicula/detalles" >Mostrar más detalles</a>
+                    </div>
+                    
                 </div>
             </div>
         </div>

@@ -57,8 +57,8 @@
                             </div>
                             <div class="col-md-7">
                                 <h2 id="modalTitulo" class="fw-bold mb-3"></h2>
-                                <p><strong>Fecha de Estreno:</strong> <span id="modalFecha"></span></p>
-                                <p><strong>Puntuación:</strong> <span id="modalPuntuacion" class="badge bg-warning text-dark"></span> / 10</p>
+                                <p>Fecha de Estreno: <span id="modalFecha"></span></p>
+                                <p>Puntuación: <span id="modalPuntuacion" class="badge bg-warning text-dark"></span> / 10</p>
                                 <hr class="border-secondary">
                                 <h5>Sinopsis</h5>
                                 <p id="modalDescripcion" class="text-light"></p>
@@ -66,8 +66,10 @@
                         </div>
                     </div>
                     <div class="modal-footer border-secondary">
-                        <%-- Aquí podrías poner el botón para ir a escribir reseña si quisieras --%>
+                        
+                        <a type="button" class="btn btn-secondary" href="${pageContext.request.contextPath}/pelicula/detalles">Mostrar más detalles</a>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        
                     </div>
                 </div>
             </div>

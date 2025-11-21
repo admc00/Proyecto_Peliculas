@@ -72,7 +72,7 @@ public class UsuarioController extends HttpServlet {
                         session.invalidate();
                         LOG.log(Level.INFO, "Sesion invalidada.");
                     }
-                    response.sendRedirect(request.getContextPath() + "/home?aviso=logoutExitoso");
+                    response.sendRedirect(request.getContextPath() + "?aviso=logoutExitoso");
                     return;
 
             }
@@ -142,7 +142,7 @@ public class UsuarioController extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("usuarioLogueado", usuario);
                 LOG.log(Level.INFO, "Login exitoso para: {0}", email);
-                response.sendRedirect(request.getContextPath() + "/home?aviso=loginExitoso");
+                response.sendRedirect(request.getContextPath() + "?aviso=loginExitoso");
             } else {
 
                 throw new SecurityException("Contraseña incorrecta.");
@@ -187,7 +187,7 @@ public class UsuarioController extends HttpServlet {
             save(nuevoUsuario);
             LOG.log(Level.INFO, "Nuevo usuario registrado: {0}", email);
 
-            response.sendRedirect(request.getContextPath() + "/usuario/login?aviso=registroExitoso"); // Añadimos parámetro opcional
+            response.sendRedirect(request.getContextPath() + "/usuario/login?aviso=registroExitoso");
 
         } catch (IllegalArgumentException e) {
             LOG.log(Level.WARNING, "Intento de registro fallido (datos invalidos): {0}", e.getMessage());
