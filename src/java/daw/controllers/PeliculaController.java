@@ -62,6 +62,13 @@ public class PeliculaController extends HttpServlet {
                     
                 case "/detalles":
                     
+                    
+                    int idApi = Integer.parseInt(request.getParameter("id"));
+                    
+                    PeliculaDTO pelicula = apiService.obtenerDetallesPelicula(idApi);
+                    
+                    request.setAttribute("pelicula", pelicula);
+                    
                     vista = "/WEB-INF/views/pelicula.jsp";
                     break;
                     

@@ -27,6 +27,7 @@
                             <img src="${pelicula.getPosterUrlCompleta()}" class="card-img-top rounded poster-accion" alt="${pelicula.titulo}" style="height: 350px; object-fit: cover;" 
                                  data-bs-toggle="modal" 
                                  data-bs-target="#detallePeliculaModal"
+                                 data-id="${pelicula.idApi}"
                                  data-titulo="${pelicula.titulo}"
                                  data-fecha="${pelicula.fechaEstreno}"
                                  data-puntuacion="${pelicula.puntuacionMedia}"
@@ -53,6 +54,7 @@
                             <img src="${pelicula.getPosterUrlCompleta()}" class="card-img-top rounded poster-accion" alt="${pelicula.titulo}" style="height: 350px; object-fit: cover;" 
                                  data-bs-toggle="modal" 
                                  data-bs-target="#detallePeliculaModal"
+                                 data-id="${pelicula.idApi}"
                                  data-titulo="${pelicula.titulo}"
                                  data-fecha="${pelicula.fechaEstreno}"
                                  data-puntuacion="${pelicula.puntuacionMedia}"
@@ -79,11 +81,16 @@
                             <img src="${pelicula.getPosterUrlCompleta()}" class="card-img-top rounded poster-accion" alt="${pelicula.titulo}" style="height: 350px; object-fit: cover;" 
                                  data-bs-toggle="modal" 
                                  data-bs-target="#detallePeliculaModal"
+                                 
                                  data-titulo="${pelicula.titulo}"
                                  data-fecha="${pelicula.fechaEstreno}"
                                  data-puntuacion="${pelicula.puntuacionMedia}"
                                  data-imagen="${pelicula.getPosterUrlCompleta()}"
-                                 data-descripcion="${pelicula.descripcion}">
+                                 data-descripcion="${pelicula.descripcion}"
+                                 
+                                 data-url-detalles="${pageContext.request.contextPath}/pelicula/detalles?id=${pelicula.idApi}">
+                            
+                                 
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title text-truncate" title="${pelicula.titulo}">${pelicula.titulo}</h5>
                             </div>
@@ -116,7 +123,7 @@
                     
                     <div class="modal-footer border-secondary">
                         
-                        <a type="button" class="btn btn-secondary" href="${pageContext.request.contextPath}/pelicula/detalles" >Mostrar más detalles</a>
+                        <a id="modalDetalles" href="#" class="btn btn-primary">Mostrar más detalles</a>
                     </div>
                     
                 </div>

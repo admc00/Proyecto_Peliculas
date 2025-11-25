@@ -14,7 +14,18 @@
         <jsp:include page="/WEB-INF/views/barranav.jsp"/>
 
 
-        <h1>Hello World!</h1>
+        <main container mt-5 flex-grow-1>
+            <div d-flex pb-1>
+                
+                
+                
+            </div>
+            
+            <div>
+                
+            </div>
+            
+        </main>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="${pageContext.request.contextPath}/javascript/main.js"></script>

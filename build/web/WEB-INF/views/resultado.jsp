@@ -29,11 +29,14 @@
                                 <button type="button" class="btn btn-color mt-auto" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#detallePeliculaModal"
+                                        data-id="${pelicula.idApi}"
                                         data-titulo="${pelicula.titulo}"
                                         data-fecha="${pelicula.fechaEstreno}"
                                         data-puntuacion="${pelicula.puntuacionMedia}"
                                         data-imagen="${pelicula.getPosterUrlCompleta()}"
-                                        data-descripcion="${pelicula.descripcion}">
+                                        data-descripcion="${pelicula.descripcion}"
+                                        
+                                        data-url-detalles="${pageContext.request.contextPath}/pelicula/detalles?id=${pelicula.idApi}">
                                     Ver Detalles
                                 </button>
                             </div>
@@ -67,7 +70,7 @@
                     </div>
                     <div class="modal-footer border-secondary">
                         
-                        <a type="button" class="btn btn-secondary" href="${pageContext.request.contextPath}/pelicula/detalles">Mostrar más detalles</a>
+                        <a id="modalDetalles" href="#" class="btn btn-primary">Mostrar más detalles</a>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         
                     </div>

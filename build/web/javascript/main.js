@@ -53,21 +53,28 @@ document.addEventListener("click", function () {
     }
 
     modalDetalle.addEventListener('show.bs.modal', event => {
-      
+
         const button = event.relatedTarget;
 
+        const urlDetalles = button.getAttribute('data-url-detalles');
         const titulo = button.getAttribute('data-titulo');
         const fecha = button.getAttribute('data-fecha');
         const puntuacion = button.getAttribute('data-puntuacion');
         const imagen = button.getAttribute('data-imagen');
         const descripcion = button.getAttribute('data-descripcion');
 
+
+        const elDetalles = modalDetalle.querySelector('#modalDetalles');
+        const elId = modalDetalle.querySelector('#modalId');
         const elTitulo = modalDetalle.querySelector('#modalTitulo');
         const elFecha = modalDetalle.querySelector('#modalFecha');
         const elPuntuacion = modalDetalle.querySelector('#modalPuntuacion');
         const elImagen = modalDetalle.querySelector('#modalImagen');
         const elDescripcion = modalDetalle.querySelector('#modalDescripcion');
 
+
+        if (elDetalles) 
+            elDetalles.href = urlDetalles; 
         if (elTitulo)
             elTitulo.textContent = titulo;
         if (elFecha)
