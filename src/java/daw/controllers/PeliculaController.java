@@ -20,10 +20,9 @@ import java.util.List;
  *
  * @author admc0
  */
-
 @WebServlet(name = "PeliculaController", urlPatterns = {"/pelicula/*"})
 public class PeliculaController extends HttpServlet {
-    
+
     private ApiService apiService = new ApiService();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -38,7 +37,6 @@ public class PeliculaController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
 
         String action = request.getPathInfo();
         String vista = "/WEB-INF/views/home.jsp";
@@ -50,32 +48,31 @@ public class PeliculaController extends HttpServlet {
 
             switch (action) {
                 case "/buscar":
-                
+
                     String query = request.getParameter("query");
-                    
+
                     List<PeliculaDTO> peliculas = apiService.buscarPeliculas(query);
-                    
+
                     request.setAttribute("peliculas", peliculas);
                     request.setAttribute("terminoBusqueda", query);
                     vista = "/WEB-INF/views/resultado.jsp";
                     break;
-                    
+
                 case "/detalles":
-                    
-                    
+
                     int idApi = Integer.parseInt(request.getParameter("id"));
-                    
+
                     PeliculaDTO pelicula = apiService.obtenerDetallesPelicula(idApi);
-                    
-                    request.setAttribute("pelicula", pelicula);
-                    
+
+                    request.setAttribute("detalles", pelicula);
+
                     vista = "/WEB-INF/views/pelicula.jsp";
                     break;
-                    
+
                 default:
-                  
+
                     response.sendRedirect(request.getContextPath() + "");
-                    return; 
+                    return;
             }
 
             RequestDispatcher dispatcher = request.getRequestDispatcher(vista);
@@ -87,7 +84,7 @@ public class PeliculaController extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/error.jsp");
             dispatcher.forward(request, response);
         }
-        
+
     }
 
     /**
@@ -101,7 +98,7 @@ public class PeliculaController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
     }
 
     /**

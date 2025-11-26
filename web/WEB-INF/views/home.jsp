@@ -32,7 +32,10 @@
                                  data-fecha="${pelicula.fechaEstreno}"
                                  data-puntuacion="${pelicula.puntuacionMedia}"
                                  data-imagen="${pelicula.getPosterUrlCompleta()}"
-                                 data-descripcion="${pelicula.descripcion}">
+                                 data-descripcion="${pelicula.descripcion}"
+                                 
+                                 
+                                 data-url-detalles="${pageContext.request.contextPath}/pelicula/detalles?id=${pelicula.idApi}">
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title text-truncate" title="${pelicula.titulo}">${pelicula.titulo}</h5>
                             </div>
@@ -59,7 +62,11 @@
                                  data-fecha="${pelicula.fechaEstreno}"
                                  data-puntuacion="${pelicula.puntuacionMedia}"
                                  data-imagen="${pelicula.getPosterUrlCompleta()}"
-                                 data-descripcion="${pelicula.descripcion}">
+                                 data-descripcion="${pelicula.descripcion}"
+                                 
+                                 
+                                 data-url-detalles="${pageContext.request.contextPath}/pelicula/detalles?id=${pelicula.idApi}">
+                            
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title text-truncate" title="${pelicula.titulo}">${pelicula.titulo}</h5>
                             </div>
@@ -88,7 +95,7 @@
                                  data-imagen="${pelicula.getPosterUrlCompleta()}"
                                  data-descripcion="${pelicula.descripcion}"
                                  
-                                 data-url-detalles="${pageContext.request.contextPath}/pelicula/detalles?id=${pelicula.idApi}">
+                                data-url-detalles="${pageContext.request.contextPath}/pelicula/detalles?id=${pelicula.idApi}">
                             
                                  
                             <div class="card-body d-flex flex-column">

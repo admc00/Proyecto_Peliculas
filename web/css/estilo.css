@@ -8,14 +8,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 */
 
 .navbar {
-    display: flex;                 /* 1. Activa Flexbox */
-    justify-content: space-between; /* 2. ¡LA REGLA MÁGICA! */
-    /* Empuja el 1º hijo a la izq, el último a la der, */
-    /* y centra el resto (la búsqueda). */
-    align-items: center;           /* 3. Centra todo verticalmente */
+    display: flex;
+    justify-content: space-between;
 
-    background-color: #222831;     /* Tu fondo azul oscuro */
-    padding: 10px 20px;            /* Espacio (padding) arriba/abajo y a los lados */
+    align-items: center;
+
+    background-color: #222831;
+    padding: 10px 20px;
     font-family: Arial, sans-serif;
     overflow: hidden;
 }
@@ -99,11 +98,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .poster-accion {
-    cursor: pointer;              /* Cambia el cursor a una mano */
-    transition: transform 0.3s ease, filter 0.3s ease; /* Suaviza la animación */
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .poster-accion:hover {
-    transform: scale(1.03);       /* Agranda la imagen un 3% */
-    filter: brightness(1.1);      /* Aumenta el brillo ligeramente */
+    transform: scale(1.03);
+    filter: brightness(1.1);
 }
+
+
