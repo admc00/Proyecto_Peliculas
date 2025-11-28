@@ -4,13 +4,23 @@
  */
 package daw.controllers;
 
+import daw.model.Peliculas;
+import daw.model.Reseña;
+import daw.model.Usuarios;
+import jakarta.annotation.Resource;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.UserTransaction;
+import java.util.Date;
 
 /**
  *
@@ -19,33 +29,12 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "ReseñaController", urlPatterns = {"/resena/*"})
 public class ReseñaController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ReseñaController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ReseñaController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    @PersistenceContext(unitName = "Proyecto_PeliculasPU")
+    private EntityManager em;
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    @Resource
+    private UserTransaction utx;
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -57,7 +46,7 @@ public class ReseñaController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
     /**
@@ -71,17 +60,88 @@ public class ReseñaController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        String action = request.getPathInfo();
+
+        if (action != null && action.equals("/guardar")) {
+            guardarResena(request, response);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/");
+        }
+    }
+    
+    private void guardarResena(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
+        Usuarios usuario = (Usuarios) session.getAttribute("usuarioLogueado");
+        
+        if (usuario == null) {
+            response.sendRedirect(request.getContextPath() + "/usuario/login");
+            return;
+        }
+
+        try {
+            int idApi = Integer.parseInt(request.getParameter("idApiPelicula"));
+            String titulo = request.getParameter("tituloPelicula");
+            String poster = request.getParameter("posterPelicula");
+            String fechaStr = request.getParameter("fechaPelicula");
+            String descripcion = request.getParameter("descripcionPelicula");
+            double media = Double.parseDouble(request.getParameter("puntuacionMedia"));
+            
+            int puntuacionUsuario = Integer.parseInt(request.getParameter("puntuacion"));
+            String textoResena = request.getParameter("texto");
+
+            utx.begin();
+            
+            Peliculas pelicula;
+            try {
+                TypedQuery<Peliculas> query = em.createQuery(
+                    "SELECT p FROM Peliculas p WHERE p.idApi = :idApi", Peliculas.class);
+                query.setParameter("idApi", idApi);
+                pelicula = query.getSingleResult();
+            } catch (NoResultException e) {
+                
+                pelicula = new Peliculas();
+                pelicula.setId((long) idApi);
+                pelicula.setIdApi(idApi);
+                pelicula.setTitulo(titulo);
+                pelicula.setPosterUrl(poster);
+                pelicula.setDescripcion(descripcion);
+                pelicula.setPuntuacionMedia(media);
+                pelicula.setFechaEstreno(new Date());
+                
+                em.persist(pelicula);
+            }
+
+            Reseña nuevaResena = new Reseña();
+            nuevaResena.setUsuario(usuario);     
+            nuevaResena.setPelicula(pelicula);   
+            nuevaResena.setPuntuacion(puntuacionUsuario);
+            nuevaResena.setTexto(textoResena);
+            nuevaResena.setFecha(new Date());
+            
+            em.persist(nuevaResena);
+            
+            utx.commit();
+            
+            response.sendRedirect(request.getContextPath() + "/pelicula/detalles?id=" + idApi);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                utx.rollback();
+            } catch (Exception rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+           
+            response.sendRedirect(request.getContextPath() + "/");
+        }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

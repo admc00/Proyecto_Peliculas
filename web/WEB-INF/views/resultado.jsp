@@ -70,8 +70,8 @@
                     </div>
                     <div class="modal-footer border-secondary">
                         
-                        <a id="modalDetalles" href="#" class="btn btn-primary">Mostrar más detalles</a>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <a id="modalDetalles" href="#" class="btn btn-color">Mostrar más detalles</a>
+                        <button type="button" class="btn btn-color" data-bs-dismiss="modal">Cerrar</button>
                         
                     </div>
                 </div>

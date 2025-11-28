@@ -130,7 +130,7 @@
                     
                     <div class="modal-footer border-secondary">
                         
-                        <a id="modalDetalles" href="#" class="btn btn-primary">Mostrar más detalles</a>
+                        <a id="modalDetalles" href="#" class="btn btn-color">Mostrar más detalles</a>
                     </div>
                     
                 </div>

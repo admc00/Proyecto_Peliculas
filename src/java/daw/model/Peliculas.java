@@ -4,6 +4,7 @@
  */
 package daw.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,6 +29,7 @@ public class Peliculas implements Serializable {
 
     private int idApi;
     private String titulo;
+    @Column(length = 10000)
     private String descripcion;
     private Date fechaEstreno;
     private String posterUrl;

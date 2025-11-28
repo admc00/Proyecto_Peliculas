@@ -5,7 +5,10 @@
 package daw.controllers;
 
 import daw.dto.PeliculaDTO;
+import daw.model.Reseña;
 import daw.services.ApiService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +17,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,6 +28,9 @@ import java.util.List;
 public class PeliculaController extends HttpServlet {
 
     private ApiService apiService = new ApiService();
+    
+    @PersistenceContext(unitName = "Proyecto_PeliculasPU")
+    private EntityManager em;
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -65,6 +72,10 @@ public class PeliculaController extends HttpServlet {
                     PeliculaDTO pelicula = apiService.obtenerDetallesPelicula(idApi);
 
                     request.setAttribute("detalles", pelicula);
+                    
+                    
+                    List<Reseña> listaResenas = obtenerResenasPorIdApi(idApi);
+                        request.setAttribute("listaResenas", listaResenas);
 
                     vista = "/WEB-INF/views/pelicula.jsp";
                     break;
@@ -99,6 +110,19 @@ public class PeliculaController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+    }
+    
+    
+    
+    private List<Reseña> obtenerResenasPorIdApi(int idApi) {
+        try {
+            return em.createQuery("SELECT r FROM Reseña r WHERE r.pelicula.idApi = :idApi ORDER BY r.fecha DESC", Reseña.class)
+                     .setParameter("idApi", idApi)
+                     .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
     }
 
     /**

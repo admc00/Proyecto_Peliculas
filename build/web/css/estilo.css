@@ -107,4 +107,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     filter: brightness(1.1);
 }
 
+.borde-personalizado{
+    border: 5px solid #222842;
+}
+
 
