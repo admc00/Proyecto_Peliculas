@@ -4,6 +4,7 @@
  */
 package daw.controllers;
 
+import daw.dto.PeliculaDTO;
 import daw.model.Peliculas;
 import daw.model.Reseña;
 import daw.model.Usuarios;
@@ -12,6 +13,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,6 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.UserTransaction;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -60,22 +63,66 @@ public class ReseñaController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String action = request.getPathInfo();
 
-        if (action != null && action.equals("/guardar")) {
-            guardarResena(request, response);
-        } else {
-            response.sendRedirect(request.getContextPath() + "/");
+        String action = request.getPathInfo();
+        String vista = "/WEB-INF/views/home.jsp";
+
+        try {
+            if (action == null) {
+                action = "/";
+            }
+
+            switch (action) {
+                case "/guardar":
+                    guardarResena(request, response);
+
+                    break;
+
+                case "/eliminar":
+                    
+                    eliminarResena();
+
+                    break;
+                    
+                    
+                case "/editar":
+                    
+                    editarResena();
+                    
+                    break;
+
+                default:
+
+                    response.sendRedirect(request.getContextPath() + "");
+                    return;
+            }
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher(vista);
+            dispatcher.forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMsg", "Error al procesar la solicitud de película.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/error.jsp");
+            dispatcher.forward(request, response);
         }
     }
     
-    private void guardarResena(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
+    private void eliminarResena(){
         
+        
+    }
+    
+    private void editarResena(){
+        
+    }
+
+    private void guardarResena(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         HttpSession session = request.getSession();
         Usuarios usuario = (Usuarios) session.getAttribute("usuarioLogueado");
-        
+
         if (usuario == null) {
             response.sendRedirect(request.getContextPath() + "/usuario/login");
             return;
@@ -88,20 +135,20 @@ public class ReseñaController extends HttpServlet {
             String fechaStr = request.getParameter("fechaPelicula");
             String descripcion = request.getParameter("descripcionPelicula");
             double media = Double.parseDouble(request.getParameter("puntuacionMedia"));
-            
+
             int puntuacionUsuario = Integer.parseInt(request.getParameter("puntuacion"));
             String textoResena = request.getParameter("texto");
 
             utx.begin();
-            
+
             Peliculas pelicula;
             try {
                 TypedQuery<Peliculas> query = em.createQuery(
-                    "SELECT p FROM Peliculas p WHERE p.idApi = :idApi", Peliculas.class);
+                        "SELECT p FROM Peliculas p WHERE p.idApi = :idApi", Peliculas.class);
                 query.setParameter("idApi", idApi);
                 pelicula = query.getSingleResult();
             } catch (NoResultException e) {
-                
+
                 pelicula = new Peliculas();
                 pelicula.setId((long) idApi);
                 pelicula.setIdApi(idApi);
@@ -110,21 +157,21 @@ public class ReseñaController extends HttpServlet {
                 pelicula.setDescripcion(descripcion);
                 pelicula.setPuntuacionMedia(media);
                 pelicula.setFechaEstreno(new Date());
-                
+
                 em.persist(pelicula);
             }
 
             Reseña nuevaResena = new Reseña();
-            nuevaResena.setUsuario(usuario);     
-            nuevaResena.setPelicula(pelicula);   
+            nuevaResena.setUsuario(usuario);
+            nuevaResena.setPelicula(pelicula);
             nuevaResena.setPuntuacion(puntuacionUsuario);
             nuevaResena.setTexto(textoResena);
             nuevaResena.setFecha(new Date());
-            
+
             em.persist(nuevaResena);
-            
+
             utx.commit();
-            
+
             response.sendRedirect(request.getContextPath() + "/pelicula/detalles?id=" + idApi);
 
         } catch (Exception e) {
@@ -134,7 +181,7 @@ public class ReseñaController extends HttpServlet {
             } catch (Exception rollbackEx) {
                 rollbackEx.printStackTrace();
             }
-           
+
             response.sendRedirect(request.getContextPath() + "/");
         }
     }

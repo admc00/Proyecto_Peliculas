@@ -153,22 +153,27 @@
 
 
                                                         <div class="dropdown ms-1 border-4">
-                                                            <button class="btn">
+                                                            <button class="btn p-0 fs-4" data-bs-toggle="dropdown">
                                                                 &#8942;
                                                             </button>
 
-                                                            <ul class=”dropdown-menu”>
+                                                            <ul class="dropdown-menu dropdown-menu-end shadow border-0">
                                                                 <li>
-                                                                    <a>
+                                                                    <a class="dropdown-item" href="#">
                                                                         Editar
                                                                     </a>
-                                                                    
+
                                                                 </li>
-                                                                <li><a>
-                                                                        Eliminar
-                                                                    </a>
+                                                                <li>
+                                                                    <form action="${pageContext.request.contextPath}/resena/eliminar" method="POST">
+                                                                        <input type="hidden" name="idResena" value="${resena.id}">
+                                                                        <input type="hidden" name="idApiPelicula" value="${detalles.idApi}">
+                                                                        <button type="submit" class="dropdown-item text-danger">
+                                                                            Eliminar
+                                                                        </button>
+                                                                    </form>
                                                                 </li>
-                                                          
+
                                                             </ul>
                                                         </div>
 
