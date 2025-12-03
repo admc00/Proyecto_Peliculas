@@ -159,16 +159,22 @@
 
                                                             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
                                                                 <li>
-                                                                    <a class="dropdown-item" href="#">
+                                                                    <button class="dropdown-item"
+                                                                            type="button"
+                                                                            data-bs-toggle="modal" 
+                                                                            data-bs-target="#EditarResenaModal"
+                                                                            data-id="${resena.id}"
+                                                                            data-texto="${resena.texto}"
+                                                                            data-puntuacion="${resena.puntuacion}">
                                                                         Editar
-                                                                    </a>
+                                                                    </button>
 
                                                                 </li>
                                                                 <li>
                                                                     <form action="${pageContext.request.contextPath}/resena/eliminar" method="POST">
                                                                         <input type="hidden" name="idResena" value="${resena.id}">
                                                                         <input type="hidden" name="idApiPelicula" value="${detalles.idApi}">
-                                                                        <button type="submit" class="dropdown-item text-danger">
+                                                                        <button type="submit" class="dropdown-item">
                                                                             Eliminar
                                                                         </button>
                                                                     </form>
@@ -176,10 +182,6 @@
 
                                                             </ul>
                                                         </div>
-
-
-
-
                                                     </c:if>   
                                                 </div>
                                             </div>
@@ -209,6 +211,47 @@
             </c:if>
 
         </main>
+
+
+        <div class="modal fade" id="editarResenaModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-dark text-white border-secondary">
+                        <h5 class="modal-title">Editar Reseña</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body bg-dark">
+                        <form id="formEditarResena" action="${pageContext.request.contextPath}/resena/editar" method="POST">
+                            <input type="hidden" name="idResena" id="editIdResena">
+                            <input type="hidden" name="idApiPelicula" value="${detalles.idApi}">
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Puntuación:</label>
+                                <select name="puntuacion" id="editPuntuacion" class="form-select">
+                                    <option value="10">10 - Obra Maestra</option>
+                                    <option value="9">9 - Excelente</option>
+                                    <option value="8">8 - Muy Buena</option>
+                                    <option value="7">7 - Buena</option>
+                                    <option value="6">6 - Interesante</option>
+                                    <option value="5">5 - Pasable</option>
+                                    <option value="4">4 - Regular</option>
+                                    <option value="0">0 - Mala</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Comentario:</label>
+                                <textarea name="texto" id="editTexto" class="form-control" rows="4" required></textarea>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="${pageContext.request.contextPath}/javascript/main.js"></script>

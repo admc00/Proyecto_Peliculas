@@ -84,4 +84,35 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const modalEditar = document.getElementById('editarResenaModal');
+
+    if (modalEditar) {
+        modalEditar.addEventListener('show.bs.modal', event => {
+
+            const button = event.relatedTarget;
+
+
+            const idResena = button.getAttribute('data-id');
+            const texto = button.getAttribute('data-texto');
+            const puntuacion = button.getAttribute('data-puntuacion');
+
+
+            const editId = modalEditar.querySelector('#editIdResena');
+            const editTexto = modalEditar.querySelector('#editTexto');
+            const editPuntuacion = modalEditar.querySelector('#editPuntuacion');
+
+            if (editId)
+                editId.value = idResena;
+
+            if (editTexto)
+                editTexto.value = texto;
+
+            if (editPuntuacion)
+                editPuntuacion.value = puntuacion;
+
+        });
+    }
+});
+
 
