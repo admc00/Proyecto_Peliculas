@@ -17,6 +17,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,7 +30,7 @@ import java.util.List;
 public class PeliculaController extends HttpServlet {
 
     private ApiService apiService = new ApiService();
-    
+
     @PersistenceContext(unitName = "Proyecto_PeliculasPU")
     private EntityManager em;
 
@@ -46,6 +48,7 @@ public class PeliculaController extends HttpServlet {
             throws ServletException, IOException {
 
         String action = request.getPathInfo();
+        HttpSession session = request.getSession();
         String vista = "/WEB-INF/views/home.jsp";
 
         try {
@@ -72,13 +75,57 @@ public class PeliculaController extends HttpServlet {
                     PeliculaDTO pelicula = apiService.obtenerDetallesPelicula(idApi);
 
                     request.setAttribute("detalles", pelicula);
-                    
-                    
+
                     List<Reseña> listaResenas = obtenerResenasPorIdApi(idApi);
-                        request.setAttribute("listaResenas", listaResenas);
+                    request.setAttribute("listaResenas", listaResenas);
 
                     vista = "/WEB-INF/views/pelicula.jsp";
                     break;
+
+                case "/guardar":
+
+                    int idAdd = Integer.parseInt(request.getParameter("id"));
+                    HttpSession sessionAdd = request.getSession();
+
+                    List<PeliculaDTO> cesta = (List<PeliculaDTO>) sessionAdd.getAttribute("cestaPeliculas");
+                    if (cesta == null) {
+                        cesta = new ArrayList<>();
+                    }
+
+                    boolean existe = false;
+                    for (PeliculaDTO p : cesta) {
+                        if (p.getIdApi() == idAdd) {
+                            existe = true;
+                            break;
+                        }
+                    }
+
+                    if (!existe) {
+                        PeliculaDTO peliNueva = apiService.obtenerDetallesPelicula(idAdd);
+                        if (peliNueva != null) {
+                            cesta.add(peliNueva);
+                            sessionAdd.setAttribute("cestaPeliculas", cesta);
+                        }
+                    }
+
+                    response.sendRedirect(request.getContextPath() + "/pelicula/detalles?id=" + idAdd + "&cestaOpen=true");
+                    return;
+
+                case "/eliminar":
+
+                    int idDel = Integer.parseInt(request.getParameter("id"));
+                    HttpSession sessionDel = request.getSession();
+                    List<PeliculaDTO> cestaDel = (List<PeliculaDTO>) sessionDel.getAttribute("cestaPeliculas");
+
+                    if (cestaDel != null) {
+                        cestaDel.removeIf(p -> p.getIdApi() == idDel);
+                        sessionDel.setAttribute("cestaPeliculas", cestaDel);
+                    }
+
+                   
+                    String referer = request.getHeader("Referer");
+                    response.sendRedirect(referer != null ? referer : request.getContextPath() + "/");
+                    return;
 
                 default:
 
@@ -111,14 +158,12 @@ public class PeliculaController extends HttpServlet {
             throws ServletException, IOException {
 
     }
-    
-    
-    
+
     private List<Reseña> obtenerResenasPorIdApi(int idApi) {
         try {
             return em.createQuery("SELECT r FROM Reseña r WHERE r.pelicula.idApi = :idApi ORDER BY r.fecha DESC", Reseña.class)
-                     .setParameter("idApi", idApi)
-                     .getResultList();
+                    .setParameter("idApi", idApi)
+                    .getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             return Collections.emptyList();

@@ -27,10 +27,15 @@
                                 <img src="${detalles.getPosterUrlCompleta()}" 
                                      class="img-fluid poster-grande">
 
-                                <div class="mt-4">
+                                <div class="mt-4 d-flex align-items-center" >
                                     <a href="#" onclick="history.back(); return false;" class="btn btn-color w-100">
                                         Volver
                                     </a>
+
+                                    <a href="${pageContext.request.contextPath}/pelicula/guardar?id=${detalles.idApi}" class="btn navbar-cesta">
+                                        <img src="${pageContext.request.contextPath}/img/bookmark.png"/>
+                                    </a>
+
                                 </div>
                             </div>
 
@@ -154,7 +159,7 @@
 
                                                         <div class="dropdown ms-1 border-4">
                                                             <button class="btn p-0 fs-4" data-bs-toggle="dropdown">
-                                                                &#8942;
+                                                                ⁝
                                                             </button>
 
                                                             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
@@ -226,7 +231,7 @@
                             <input type="hidden" name="idApiPelicula" value="${detalles.idApi}">
 
                             <div class="mb-3">
-                                <label class="form-label fw-bold">Puntuación:</label>
+                                <label class="form-label fw-bold text-white">Puntuación:</label>
                                 <select name="puntuacion" id="editPuntuacion" class="form-select">
                                     <option value="10">10 - Obra Maestra</option>
                                     <option value="9">9 - Excelente</option>
@@ -240,12 +245,12 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label fw-bold">Comentario:</label>
+                                <label class="form-label fw-bold text-white">Comentario:</label>
                                 <textarea name="texto" id="editTexto" class="form-control" rows="4" required></textarea>
                             </div>
 
                             <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                <button type="submit" class="btn btn-color">Guardar Cambios</button>
                             </div>
                         </form>
                     </div>

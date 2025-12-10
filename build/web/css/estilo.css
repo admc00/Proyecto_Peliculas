@@ -27,6 +27,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     border-radius: 50%;
 }
 
+.navbar-cesta img{
+    height: 20px;
+    width: auto;
+}
+
+.navbar-cesta a:hover{
+    background-color: #393e46;
+    border-radius: 3px;
+}
+
 .toast-icon{
 
     width: 24px;

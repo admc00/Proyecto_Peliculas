@@ -116,3 +116,19 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('cestaOpen') === 'true') {
+        const offcanvasEl = document.getElementById('offcanvasCesta');
+        if (offcanvasEl) {
+            const bsOffcanvas = new bootstrap.Offcanvas(offcanvasEl);
+            bsOffcanvas.show();
+            
+            
+            const newUrl = window.location.pathname + "?id=" + params.get('id');
+            window.history.replaceState(null, '', newUrl);
+        }
+    }
+});
+
