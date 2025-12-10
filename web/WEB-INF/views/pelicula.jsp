@@ -159,10 +159,10 @@
 
                                                             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
                                                                 <li>
-                                                                    <button class="dropdown-item"
+                                                                    <button class="dropdown-item btn"
                                                                             type="button"
                                                                             data-bs-toggle="modal" 
-                                                                            data-bs-target="#EditarResenaModal"
+                                                                            data-bs-target="#editarResenaModal"
                                                                             data-id="${resena.id}"
                                                                             data-texto="${resena.texto}"
                                                                             data-puntuacion="${resena.puntuacion}">
@@ -213,7 +213,7 @@
         </main>
 
 
-        <div class="modal fade" id="editarResenaModal" tabindex="-1" aria-hidden="true">
+        <div class="modal" id="editarResenaModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header bg-dark text-white border-secondary">
